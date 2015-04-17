@@ -5,6 +5,10 @@ public class Card {
 	
 	private int suit, rank;
 	
+	public Card(){
+		
+	}
+	
 	public Card(int suit, int rank){
 		this.suit = suit;
 		this.rank = rank;
