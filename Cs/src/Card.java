@@ -26,4 +26,11 @@ public class Card {
 		return(this.rank == card.getRank());
 	}
 
+	@Override
+	public String toString() {
+		return "Card [suit=" + suit + ", rank=" + rank + "]";
+	}
+	
+	
+
 }

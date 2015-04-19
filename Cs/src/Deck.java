@@ -48,6 +48,12 @@ public class Deck {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		return "Deck [deck=" + deck + ", card=" + card + ", length=" + length
+				+ "]";
+	}
+
 	public Deck splitDeck(){
 		Deck deck2 = new Deck();
 		int len = this.getLength()/2;
