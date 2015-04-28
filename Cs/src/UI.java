@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 public class UI  extends JFrame{
 	
-	private JLabel mCard1, mCard2;
+	private JLabel mCard1, mCard2, left1, left2, war1, war2;
 	
 	private JPanel mPanel, mPanel1, mPanel2, mPanel1a, mPanel2a;
 	
@@ -30,8 +30,10 @@ public class UI  extends JFrame{
 		
 		setLayout(new FlowLayout());
 		
-		mCard1 = new JLabel(new ImageIcon("10c.jpg"));
+		mCard1 = new JLabel(new ImageIcon("cards/b2fv.png"));
 		mCard2 = new JLabel(new ImageIcon());
+		war1 = new JLabel();
+		war2 = new JLabel();
 		
 		button = new JButton("Next Battle");
 		
@@ -40,9 +42,11 @@ public class UI  extends JFrame{
 		mPanel1.setLayout(new FlowLayout());
 		mPanel1a = new JPanel();
 		mPanel1a.setBackground(Color.RED);
-		mPanel1a.setLayout(new GridLayout(2,1));
+		mPanel1a.setLayout(new GridLayout(3,1));
 		mPanel1a.add(new JLabel("Player 1"));
-		mPanel1a.add(new JLabel("Cards Left: 26"));
+		left1 = new JLabel("Cards Left: 26");
+		mPanel1a.add(left1);
+		mPanel1a.add(war1);
 		mPanel1.add(mPanel1a);
 		mPanel1.add(mCard1);
 
@@ -53,9 +57,11 @@ public class UI  extends JFrame{
 		mPanel2.setLayout(new FlowLayout());
 		mPanel2a = new JPanel();
 		mPanel2a.setBackground(Color.BLUE);
-		mPanel2a.setLayout(new GridLayout(2,1));
+		mPanel2a.setLayout(new GridLayout(3,1));
 		mPanel2a.add(new JLabel("Player 2"));
-		mPanel2a.add(new JLabel("Cards Left: 26"));
+		left2 = new JLabel("Cards Left: 26");
+		mPanel2a.add(left2);
+		mPanel2a.add(war2);
 		mPanel2.add(mPanel2a);
 		mPanel2.add(mCard2);
 		
@@ -70,7 +76,7 @@ public class UI  extends JFrame{
 		add(button);
 		button.addActionListener(new ButtonListener());
 		
-		mCard2.setIcon(new ImageIcon("10c.jpg"));
+		mCard2.setIcon(new ImageIcon("cards/b1fv.png"));
 		
 	}
 	
@@ -90,11 +96,25 @@ public class UI  extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			setWar(0);
 			game.battle();
 			System.out.println(game.getDeck1().getLength());
+			left1.setText("Cards Left: " + Integer.toString(game.getDeck1().getLength()));
 			System.out.println(game.getDeck2().getLength());
+			left2.setText("Cards Left: " + Integer.toString(game.getDeck2().getLength()));
+
 		}
 		
+	}
+	
+	public void setWar(int num){
+		if(num == 0){
+			war1.setText("");
+			war2.setText("");
+		}else{
+			war1.setText("War: " + num);
+			war2.setText("War: " + num);
+		}
 	}
 
 }

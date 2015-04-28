@@ -11,7 +11,7 @@ public class War {
 	
 	public static void main(String[] args){
 		
-		UI frame = new UI("New Frame ...");
+		UI frame = new UI("War!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		//frame.setSize(350,550);
@@ -26,16 +26,6 @@ public class War {
 		WarGame game = new WarGame(deck1, deck2, frame);
 		frame.setGameRef(game);
 		
-
-		
-	while(deck1.getLength() > 10 && deck2.getLength() > 10){
-			game.battle();
-			System.out.println(game.getDeck1().getLength());
-			System.out.println(game.getDeck2().getLength());
-			scanner.next();
-		
-			
-		}
 		
 
 		

@@ -48,6 +48,10 @@ public class Deck {
 		}
 	}
 	
+	public boolean hasNext(){
+		return(!deck.isEmpty());
+	}
+	
 	@Override
 	public String toString() {
 		return "Deck [deck=" + deck + ", card=" + card + ", length=" + length
