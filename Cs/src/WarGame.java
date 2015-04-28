@@ -8,6 +8,7 @@ public class WarGame {
 	private int count1, count2, length1, length2;
 	private UI ui;
 	private Card card1, card2;
+	private boolean isWar = false;
 	private int warCount = 0;
 	private ArrayList<Card> cards1 = new ArrayList<Card>(),
 			cards2 = new ArrayList<Card>();
@@ -40,14 +41,25 @@ public class WarGame {
 			card1 = deck1.nextCard();
 			count1++;
 			System.out.println(card1);
-			ui.setCard1(card1.fileName());
+			//ui.setCard1(card1.fileName());
+
 		}
 
 		if (deck2.hasNext()) {
 			card2 = deck2.nextCard();
 			count2++;
 			System.out.println(card2);
+			//ui.setCard2(card2.fileName());
+		}
+		
+		if(!isWar){
+			ui.setCard1(card1.fileName());
 			ui.setCard2(card2.fileName());
+			ui.setCard1b("cards/b2fv.png");
+			ui.setCard2b("cards/b1fv.png");
+		} else {
+			ui.setCard1b(card1.fileName());
+			ui.setCard2b(card2.fileName());
 		}
 
 		cards1.add(card1);
@@ -58,6 +70,7 @@ public class WarGame {
 			this.war();
 
 		} else if (card1.getRank() > card2.getRank()) {
+			ui.setWinner1();
 			for (int i = 0; i < cards1.size(); i++) {
 				deck1.addCard(cards1.get(i));
 			}
@@ -65,6 +78,7 @@ public class WarGame {
 				deck1.addCard(cards2.get(j));
 			}
 		} else {
+			ui.setWinner2();
 			for (int i = 0; i < cards1.size(); i++) {
 				deck2.addCard(cards1.get(i));
 			}
@@ -76,10 +90,12 @@ public class WarGame {
 		cards1 = new ArrayList<Card>();
 		cards2 = new ArrayList<Card>();
 		warCount = 0;
+		isWar = false;
 		
 	}
 
 	private void war() {
+		isWar = true;
 		warCount++;
 		ui.setWar(warCount);
 		doWeShuffle();

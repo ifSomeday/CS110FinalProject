@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 public class UI  extends JFrame{
 	
-	private JLabel mCard1, mCard2, left1, left2, war1, war2;
+	private JLabel mCard1, mCard2, left1, left2, war1, war2, mCard1p, mCard2p, mCard1b, mCard2b, winner1, winner2;
 	
 	private JPanel mPanel, mPanel1, mPanel2, mPanel1a, mPanel2a;
 	
@@ -31,39 +31,51 @@ public class UI  extends JFrame{
 		setLayout(new FlowLayout());
 		
 		mCard1 = new JLabel(new ImageIcon("cards/b2fv.png"));
-		mCard2 = new JLabel(new ImageIcon());
+		mCard2 = new JLabel(new ImageIcon("cards/b1fv.png"));
+		mCard1b = new JLabel(new ImageIcon("cards/b2fv.png"));
+		mCard2b = new JLabel(new ImageIcon("cards/b1fv.png"));
+		mCard1p = new JLabel(new ImageIcon("cards/b2pl.png"));
+		mCard2p = new JLabel(new ImageIcon("cards/b1pl.png"));
 		war1 = new JLabel();
 		war2 = new JLabel();
+		winner1 = new JLabel();
+		winner2 = new JLabel();
 		
 		button = new JButton("Next Battle");
 		
 		mPanel1 = new JPanel();
 		mPanel1.setBackground(Color.RED);
-		mPanel1.setLayout(new FlowLayout());
+		mPanel1.setLayout(new FlowLayout(FlowLayout.LEADING, 0,0));
 		mPanel1a = new JPanel();
 		mPanel1a.setBackground(Color.RED);
-		mPanel1a.setLayout(new GridLayout(3,1));
-		mPanel1a.add(new JLabel("Player 1"));
+		mPanel1a.setLayout(new GridLayout(4,1));
+		mPanel1a.add(new JLabel("Player 1              "));
 		left1 = new JLabel("Cards Left: 26");
 		mPanel1a.add(left1);
 		mPanel1a.add(war1);
+		mPanel1a.add(winner1);
 		mPanel1.add(mPanel1a);
 		mPanel1.add(mCard1);
+		mPanel1.add(mCard1p);
+		mPanel1.add(mCard1b);
 
 
 		
 		mPanel2 = new JPanel();
 		mPanel2.setBackground(Color.BLUE);
-		mPanel2.setLayout(new FlowLayout());
+		mPanel2.setLayout(new FlowLayout(FlowLayout.LEADING, 0,0));
 		mPanel2a = new JPanel();
 		mPanel2a.setBackground(Color.BLUE);
-		mPanel2a.setLayout(new GridLayout(3,1));
-		mPanel2a.add(new JLabel("Player 2"));
+		mPanel2a.setLayout(new GridLayout(4,1));
+		mPanel2a.add(new JLabel("Player 2              "));
 		left2 = new JLabel("Cards Left: 26");
 		mPanel2a.add(left2);
 		mPanel2a.add(war2);
+		mPanel2a.add(winner2);
 		mPanel2.add(mPanel2a);
 		mPanel2.add(mCard2);
+		mPanel2.add(mCard2p);
+		mPanel2.add(mCard2b);
 		
 		
 		
@@ -76,20 +88,36 @@ public class UI  extends JFrame{
 		add(button);
 		button.addActionListener(new ButtonListener());
 		
-		mCard2.setIcon(new ImageIcon("cards/b1fv.png"));
-		
-	}
-	
-	public void setCard1(String filename){
-		mCard1.setIcon(new ImageIcon(filename));
 	}
 	
 	public void setGameRef(WarGame game){
 		this.game = game;
 	}
 	
+	public void setCard1(String filename){
+		mCard1.setIcon(new ImageIcon(filename));
+	}
+
 	public void setCard2(String filename){
 		mCard2.setIcon(new ImageIcon(filename));
+	}
+	
+	public void setCard1b(String filename){
+		mCard1b.setIcon(new ImageIcon(filename));
+	}
+	
+	public void setCard2b(String filename){
+		mCard2b.setIcon(new ImageIcon(filename));
+	}
+	
+	public void setWinner1(){
+		winner2.setText("");
+		winner1.setText("Player 1 wins!");
+	}
+	
+	public void setWinner2(){
+		winner1.setText("");
+		winner2.setText("Player 2 wins!");
 	}
 	
 	class ButtonListener implements ActionListener{
