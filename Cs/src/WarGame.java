@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 public class WarGame {
 
 	private Deck deck1, deck2;
@@ -37,22 +35,20 @@ public class WarGame {
 
 	public void battle() {
 		doWeShuffle();
+
 		if (deck1.hasNext()) {
 			card1 = deck1.nextCard();
 			count1++;
 			System.out.println(card1);
-			//ui.setCard1(card1.fileName());
-
 		}
 
 		if (deck2.hasNext()) {
 			card2 = deck2.nextCard();
 			count2++;
 			System.out.println(card2);
-			//ui.setCard2(card2.fileName());
 		}
-		
-		if(!isWar){
+
+		if (!isWar) {
 			ui.setCard1(card1.fileName());
 			ui.setCard2(card2.fileName());
 			ui.setCard1b("cards/b2fv.png");
@@ -91,7 +87,7 @@ public class WarGame {
 		cards2 = new ArrayList<Card>();
 		warCount = 0;
 		isWar = false;
-		
+
 	}
 
 	private void war() {
