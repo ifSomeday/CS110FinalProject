@@ -4,14 +4,14 @@ public class WarGame {
 
 	private Deck deck1, deck2;
 	private int count1, count2, length1, length2;
-	private UI ui;
+	private mainUI ui;
 	private Card card1, card2;
 	private boolean isWar = false;
 	private int warCount = 0;
 	private ArrayList<Card> cards1 = new ArrayList<Card>(),
 			cards2 = new ArrayList<Card>();
 
-	public WarGame(Deck deck, UI ui) {
+	public WarGame(Deck deck, mainUI ui) {
 		this.deck1 = deck;
 		this.deck1.shuffle();
 		this.deck2 = deck1.splitDeck();
@@ -23,7 +23,7 @@ public class WarGame {
 
 	}
 
-	public WarGame(Deck deck1, Deck deck2, UI ui) {
+	public WarGame(Deck deck1, Deck deck2, mainUI ui) {
 		this.deck1 = deck1;
 		this.deck2 = deck2;
 		this.ui = ui;

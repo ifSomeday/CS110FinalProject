@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class UI extends JFrame {
+@SuppressWarnings("serial")
+public class mainUI extends JFrame {
 
 	private JLabel mCard1, mCard2, left1, left2, war1, war2, mCard1p, mCard2p,
 			mCard1b, mCard2b, winner1, winner2;
@@ -25,7 +25,7 @@ public class UI extends JFrame {
 
 	private WarGame game;
 
-	public UI(String s) {
+	public mainUI(String s) {
 
 		super(s);
 
@@ -129,9 +129,10 @@ public class UI extends JFrame {
 			System.out.println(game.getDeck2().getLength());
 			left2.setText("Cards Left: "
 					+ Integer.toString(game.getDeck2().getLength()));
-			
-			if(game.getDeck1().getLength() <= 0 || game.getDeck2().getLength() <= 0){
-				if(game.getDeck1().getLength() == 0){
+
+			if (game.getDeck1().getLength() <= 0
+					|| game.getDeck2().getLength() <= 0) {
+				if (game.getDeck1().getLength() == 0) {
 					winner("Player 2");
 				} else {
 					winner("Player 1");
@@ -151,56 +152,54 @@ public class UI extends JFrame {
 			war2.setText("War: " + num);
 		}
 	}
-	
-	private void winner(String winner){
+
+	private void winner(String winner) {
 		gameOver gg = new gameOver("Game Over!", winner + " wins!", this);
 		gg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gg.pack();
 		gg.setVisible(true);
 	}
-	
-	private class gameOver extends JFrame{
-		
-		UI ui;
-		
-		public gameOver(String s, String winner, UI ui){
+
+	private class gameOver extends JFrame {
+
+		mainUI ui;
+
+		public gameOver(String s, String winner, mainUI ui) {
 			super(s);
-			
+
 			this.ui = ui;
-			
+
 			setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-			//setLayout(new GridLayout(2,1));
-			 
-			
+			// setLayout(new GridLayout(2,1));
+
 			JButton mButton = new JButton("Exit");
-			JLabel  mLabel = new JLabel(winner);
-			
-			mLabel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-			
+			JLabel mLabel = new JLabel(winner);
+
+			mLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
 			mLabel.setAlignmentX(CENTER_ALIGNMENT);
 			mButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
-			mButton.addActionListener(new ButtonListener())
-;			
+
+			mButton.addActionListener(new ButtonListener());
 			add(mLabel);
 			add(mButton);
-			
+
 		}
-		
-		class ButtonListener implements ActionListener{
+
+		class ButtonListener implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				ui.setVisible(false);
 				ui.dispose();
-				
+
 				setVisible(false);
 				dispose();
 			}
-			
+
 		}
-		
+
 	}
 
 }

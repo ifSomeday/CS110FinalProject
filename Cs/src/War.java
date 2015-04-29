@@ -7,7 +7,7 @@ public class War {
 
 	public static void main(String[] args) {
 
-		UI frame = new UI("War!");
+		mainUI frame = new mainUI("War!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
