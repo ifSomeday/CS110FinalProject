@@ -1,9 +1,13 @@
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -125,6 +129,14 @@ public class UI extends JFrame {
 			System.out.println(game.getDeck2().getLength());
 			left2.setText("Cards Left: "
 					+ Integer.toString(game.getDeck2().getLength()));
+			
+			if(game.getDeck1().getLength() <= 0 || game.getDeck2().getLength() <= 0){
+				if(game.getDeck1().getLength() == 0){
+					winner("Player 2");
+				} else {
+					winner("Player 1");
+				}
+			}
 
 		}
 
@@ -138,6 +150,57 @@ public class UI extends JFrame {
 			war1.setText("War: " + num);
 			war2.setText("War: " + num);
 		}
+	}
+	
+	private void winner(String winner){
+		gameOver gg = new gameOver("Game Over!", winner + " wins!", this);
+		gg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gg.pack();
+		gg.setVisible(true);
+	}
+	
+	private class gameOver extends JFrame{
+		
+		UI ui;
+		
+		public gameOver(String s, String winner, UI ui){
+			super(s);
+			
+			this.ui = ui;
+			
+			setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+			//setLayout(new GridLayout(2,1));
+			 
+			
+			JButton mButton = new JButton("Exit");
+			JLabel  mLabel = new JLabel(winner);
+			
+			mLabel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+			
+			mLabel.setAlignmentX(CENTER_ALIGNMENT);
+			mButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+			
+			mButton.addActionListener(new ButtonListener())
+;			
+			add(mLabel);
+			add(mButton);
+			
+		}
+		
+		class ButtonListener implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				ui.setVisible(false);
+				ui.dispose();
+				
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		
 	}
 
 }
