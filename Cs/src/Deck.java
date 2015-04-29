@@ -1,62 +1,93 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Deck {
+/**
+ * the Deck class is a structured extension of the Cards class
+ * 
+ * @author erza
+ * 
+ */
+public class Deck extends Cards {
 
-	private ArrayList<Card> deck = new ArrayList<Card>();
+	// declarations
 	private Card card = new Card();
-	private int length;
 	private final int SUITS = 4, RANKS = 13;
 
+	/**
+	 * default constructor
+	 */
 	public Deck() {
 
 	}
 
-	public Deck(ArrayList<Card> deck) {
-		this.deck = deck;
+	/**
+	 * constructor that accepts
+	 * 
+	 * @param cards
+	 *            an arraylist of cards to be turned into a deck
+	 */
+	public Deck(ArrayList<Card> cards) {
+		this.cards = cards;
 	}
 
+	/**
+	 * a method that shuffles the order of the cards in the arraylist
+	 */
 	public void shuffle() {
-		Collections.shuffle(deck);
+		Collections.shuffle(cards);
 	}
 
-	public void addCard(Card card) {
-		deck.add(card);
-	}
-
+	/**
+	 * a method that clears the current arraylist and replaces it with a
+	 * standard 52 card deck
+	 */
 	public void createDeck() {
+		this.cards.clear();
 		for (int i = 0; i < SUITS; i++) {
 			for (int j = 0; j < RANKS; j++) {
-				System.out.println((i + 1) + "," + (j + 2));
 				this.addCard(new Card((i + 1), (j + 2)));
 			}
 		}
 		this.shuffle();
 	}
 
+	/**
+	 * a method to remove the top card from the deck and return it
+	 * 
+	 * @return the top card in the deck
+	 */
 	public Card nextCard() {
-		this.card = this.deck.get(0);
-		deck.remove(0);
+		this.card = this.cards.get(0);
+		cards.remove(0);
 		return (this.card);
 	}
 
+	/**
+	 * readds the card that was last removed
+	 */
 	public void readdCard() {
 		if (card != null) {
-			this.deck.add(this.card);
+			this.cards.add(this.card);
 			this.card = null;
 		}
 	}
 
-	public boolean hasNext() {
-		return (!deck.isEmpty());
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Deck [deck=" + deck + ", card=" + card + ", length=" + length
+		return "Deck [deck=" + cards + ", card=" + card + ", length=" + length
 				+ "]";
 	}
 
+	/**
+	 * splits the deck into two
+	 * 
+	 * @return half of the deck
+	 */
 	public Deck splitDeck() {
 		Deck deck2 = new Deck();
 		int len = this.getLength() / 2;
@@ -64,11 +95,6 @@ public class Deck {
 			deck2.addCard(this.nextCard());
 		}
 		return (deck2);
-	}
-
-	public int getLength() {
-		this.length = deck.size();
-		return (length);
 	}
 
 }

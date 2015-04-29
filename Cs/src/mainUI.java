@@ -1,21 +1,25 @@
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * the class for the game's UI
+ * 
+ * @author erza
+ *
+ */
 @SuppressWarnings("serial")
 public class mainUI extends JFrame {
 
+	// declarations
 	private JLabel mCard1, mCard2, left1, left2, war1, war2, mCard1p, mCard2p,
 			mCard1b, mCard2b, winner1, winner2;
 
@@ -25,6 +29,14 @@ public class mainUI extends JFrame {
 
 	private WarGame game;
 
+	private boolean gameOver = false;
+
+	/**
+	 * the main UI creator
+	 * 
+	 * @param s
+	 *            the title
+	 */
 	public mainUI(String s) {
 
 		super(s);
@@ -87,55 +99,105 @@ public class mainUI extends JFrame {
 
 	}
 
+	/**
+	 * sets the game that the UI will be playing
+	 * 
+	 * @param game
+	 *            the wargame that will be played
+	 */
 	public void setGameRef(WarGame game) {
 		this.game = game;
 	}
 
+	/**
+	 * sets the image for card 1
+	 * 
+	 * @param filename
+	 *            the filename of the proper image
+	 */
 	public void setCard1(String filename) {
 		mCard1.setIcon(new ImageIcon(filename));
 	}
 
+	/**
+	 * sets the image for card 2
+	 * 
+	 * @param filename
+	 *            the filename of the proper image
+	 */
 	public void setCard2(String filename) {
 		mCard2.setIcon(new ImageIcon(filename));
 	}
 
+	/**
+	 * sets the image for card 1b
+	 * 
+	 * @param filename
+	 *            the filename of the proper image
+	 */
 	public void setCard1b(String filename) {
 		mCard1b.setIcon(new ImageIcon(filename));
 	}
 
+	/**
+	 * sets the image of card 2b
+	 * 
+	 * @param filename
+	 *            the filename of the proper image
+	 */
 	public void setCard2b(String filename) {
 		mCard2b.setIcon(new ImageIcon(filename));
 	}
 
+	/**
+	 * sets the winner of the battle to be player 1
+	 */
 	public void setWinner1() {
 		winner2.setText("");
 		winner1.setText("Player 1 wins!");
 	}
 
+	/**
+	 * sets the winner of the battle to be player 2
+	 */
 	public void setWinner2() {
 		winner1.setText("");
 		winner2.setText("Player 2 wins!");
 	}
 
+	/**
+	 * button listener inner class
+	 * 
+	 * @author erza
+	 *
+	 */
 	class ButtonListener implements ActionListener {
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
+		 * )
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setWar(0);
-			game.battle();
-			System.out.println(game.getDeck1().getLength());
-			left1.setText("Cards Left: "
-					+ Integer.toString(game.getDeck1().getLength()));
-			System.out.println(game.getDeck2().getLength());
-			left2.setText("Cards Left: "
-					+ Integer.toString(game.getDeck2().getLength()));
+			if (!gameOver) {
+				setWar(0);
+				game.battle();
+				left1.setText("Cards Left: "
+						+ Integer.toString(game.getDeck1().getLength()));
+				left2.setText("Cards Left: "
+						+ Integer.toString(game.getDeck2().getLength()));
 
-			if (game.getDeck1().getLength() <= 0
-					|| game.getDeck2().getLength() <= 0) {
-				if (game.getDeck1().getLength() == 0) {
-					winner("Player 2");
-				} else {
-					winner("Player 1");
+				if (game.getDeck1().getLength() <= 0
+						|| game.getDeck2().getLength() <= 0) {
+					gameOver = true;
+					if (game.getDeck1().getLength() == 0) {
+						winner("Player 2");
+					} else {
+						winner("Player 1");
+					}
 				}
 			}
 
@@ -143,6 +205,12 @@ public class mainUI extends JFrame {
 
 	}
 
+	/**
+	 * sets the ui to display a war
+	 * 
+	 * @param num
+	 *            the iterations of war completed
+	 */
 	public void setWar(int num) {
 		if (num == 0) {
 			war1.setText("");
@@ -153,53 +221,17 @@ public class mainUI extends JFrame {
 		}
 	}
 
+	/**
+	 * what happens when the game is over
+	 * 
+	 * @param winner
+	 *            the player that won
+	 */
 	private void winner(String winner) {
-		gameOver gg = new gameOver("Game Over!", winner + " wins!", this);
+		GameOver gg = new GameOver("Game Over!", winner + " wins!", this);
 		gg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gg.pack();
 		gg.setVisible(true);
-	}
-
-	private class gameOver extends JFrame {
-
-		mainUI ui;
-
-		public gameOver(String s, String winner, mainUI ui) {
-			super(s);
-
-			this.ui = ui;
-
-			setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-			// setLayout(new GridLayout(2,1));
-
-			JButton mButton = new JButton("Exit");
-			JLabel mLabel = new JLabel(winner);
-
-			mLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-			mLabel.setAlignmentX(CENTER_ALIGNMENT);
-			mButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-			mButton.addActionListener(new ButtonListener());
-			add(mLabel);
-			add(mButton);
-
-		}
-
-		class ButtonListener implements ActionListener {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				ui.setVisible(false);
-				ui.dispose();
-
-				setVisible(false);
-				dispose();
-			}
-
-		}
-
 	}
 
 }
