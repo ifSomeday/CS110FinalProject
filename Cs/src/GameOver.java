@@ -1,3 +1,8 @@
+/*
+ * Will Rice
+ * CS110
+ * Part of the final project, to make a game of war
+ */
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

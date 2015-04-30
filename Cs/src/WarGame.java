@@ -1,3 +1,8 @@
+/*
+ * Will Rice
+ * CS110
+ * Part of the final project, to make a game of war
+ */
 import java.util.ArrayList;
 
 /**
